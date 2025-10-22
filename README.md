@@ -1,43 +1,53 @@
-# API de consultas na BN
+# API de consultas à Biblioteca Nacional
 
-Esta API recupera dados de livros na Biblioteca Nacional e os devolvem em JSON.
-
-Trata-se de uma API crawler utilizando Express e Cheerio. Foi construída para auxiliar no cadastro de Livros do sistema Libmin.
+Esta API busca dados de livros cadastrados na Biblioteca Nacional e os devolve estruturados num JSON.
 
 ## Por que foi criado
-Durante a concepção do Libmin, foi percebida a necessidade de simplificar a forma com que se cadastra materiais em bibliotecas.
 
-A ideia, então, era que o cadastrador precisasse digitar todos os dados, apenas buscasse o título no acervo da Biblioteca Nacional e informasse ao Libmin a URL, preenchendo os campos necessários de forma automática.
+Durante a concepção do Libmin, o nosso software para gestão de bibliotecas escolares, foi percebida a necessidade de simplificar a forma com que se cadastra os materiais. Já existem protocolos de interoperabilidade entre bibliotecas, mas nem sempre eles estão implementados ou disponíveis.
 
 ## Como utilizar
 
-Faça uma consulta para o endpoint abaixo informando a URl do livro que desejar parsear ([exemplo](http://acervo.bn.gov.br/sophia_web/acervo/detalhe/301431))
-```http
-https://consultasbn.herokuapp.com/url?q={url-do-livro-na-bn}
+Faça uma consulta para o endpoint abaixo informando a URl do livro que desejar parsear, exemplo:
+
+```bash
+curl http://localhost:3000/url?q=https://acervo.bn.gov.br/Sophia_web/acervo/detalhe/1733119
 ```
 
 Exemplo de resposta:
+
 ```json
 {
-  "title": "Código limpo",
-  "subtitle": "habilidades práticas do agile software",
-  "author": "Robert C. Martin [et al.]",
-  "cover": "http://acervo.bn.gov.br/sophia_web/capa/capa/301431",
-  "publisher": "Alta Books",
-  "year": "2009. ",
-  "isbn_code": "9788576082675 (broch.)",
-  "description": "xxi, 412p. : il. ; 24 cm.",
-  "dewey_centesimal": "005",
-  "dewey": "000"
+  "title": "A divina comédia",
+  "material": "Livro",
+  "language": "Português",
+  "isbn_code": "9788573261202",
+  "dewey": "851 (Edição 23)",
+  "location": "Obras Gerais - LOCALIZANDO/FORA DE CONSULTA",
+  "uniform_title": "[La divina commedia]InfernoPurgatórioParaiso",
+  "publisher": "[São Paulo] : Editora 34, 2019.",
+  "physical_description": "1v. ; 24 cm.",
+  "general_note": "Dante Alighieri ; tradução e notas de Italo Eugenio Mauro ; prefácio de Otto Maria Carpeaux",
+  "subjects": [
+    "Poesia italiana"
+  ],
+  "authors": [
+    "Dante Alighieri, 1265-1321",
+    "",
+    "Mauro, Italo Eugenio 1909-2003",
+    ""
+  ],
+  "cover_image": "https://acervo.bn.gov.br/Sophia_web/capa/capa/1739805"
 }
 ```
 
-## Como implementar
+## Como colaborar
+
 Se você gostou do <strong>consultas_bn</strong>, fique à vontade para melhorá-lo.
 
 - Faça uma cópia deste projeto
 ```js
-git clone https://github.com/tiagoon/consulta_bn.git
+git clone https://github.com/libmin/consultas_bn.git
 ```
 
 - Acesse o diretório
@@ -47,20 +57,20 @@ cd consultas_bn
 
 - Instale as dependências
 ```js
-yarn install
+npm install
 ```
 
 - Inicie o server
 ```js
-yarn dev
+npm run dev
 ```
 
-- Testando
-```http 
-http://localhost:3000
+- Testando (healtcheck)
+```bash 
+curl http://localhost:3000
 ```
 
 - Buscando um livro
-```http
-http://localhost:3000/url?q={url-do-livro-na-bn}
+```bash
+curl http://localhost:3000/url?q={url-do-livro-na-bn}
 ```
